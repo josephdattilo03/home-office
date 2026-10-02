@@ -1,6 +1,9 @@
+import logging
 import os
 
 from slack_bolt import App
+
+logging.basicConfig(level=os.environ.get("LOG_LEVEL", "DEBUG"))
 
 app = App(
     token=os.environ["SLACK_BOT_TOKEN"],
