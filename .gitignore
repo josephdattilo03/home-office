@@ -1,0 +1,17 @@
+# secrets
+.env
+.env.*
+
+# scraped / generated data
+data/
+
+# python
+__pycache__/
+.venv/
+*.egg-info/
+
+# os
+.DS_Store
+
+# personal notes
+_notes/

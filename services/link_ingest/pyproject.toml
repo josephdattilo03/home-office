@@ -1,0 +1,15 @@
+[project]
+name = "link_ingest"
+version = "0.1.0"
+description = "Takes a link, resolves it, fetches and stores its content"
+requires-python = ">=3.13"
+dependencies = ["core", "contracts", "link_fetchers"]
+
+[build-system]
+requires = ["uv_build>=0.12,<0.13"]
+build-backend = "uv_build"
+
+[tool.uv.sources]
+core = { workspace = true }
+contracts = { workspace = true }
+link_fetchers = { workspace = true }
