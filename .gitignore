@@ -1,3 +1,17 @@
+# secrets
 .env
+.env.*
+
+# scraped / generated data
+data/
+
+# python
+__pycache__/
+.venv/
+*.egg-info/
+
+# os
 .DS_Store
-imp/insta-scraper/-*/
+
+# personal notes
+_notes/
