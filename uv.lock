@@ -457,6 +457,7 @@ source = { editable = "services/slack_bot" }
 dependencies = [
     { name = "contracts" },
     { name = "core" },
+    { name = "pydantic" },
     { name = "slack-bolt" },
 ]
 
@@ -464,6 +465,7 @@ dependencies = [
 requires-dist = [
     { name = "contracts", editable = "libs/contracts" },
     { name = "core", editable = "libs/core" },
+    { name = "pydantic", specifier = ">=2.13.5" },
     { name = "slack-bolt", specifier = ">=1.30.0" },
 ]
 
