@@ -1,0 +1,24 @@
+services:
+  redis:
+    image: redis:8-alpine
+    restart: unless-stopped
+    command:
+      - redis-server
+      - --appendonly yes
+      - --appendfsync everysec
+      - --maxmemory 256mb
+      - --maxmemory-policy noeviction
+      - --requirepass ${REDIS_PASSWORD:?set REDIS_PASSWORD in .env}
+    ports:
+      - "127.0.0.1:6379:6379"
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli -a \"$$REDIS_PASSWORD\" --no-auth-warning ping | grep -q PONG"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+    environment:
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+volumes:
+  redis-data:

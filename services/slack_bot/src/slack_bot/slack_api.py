@@ -32,6 +32,7 @@ def handle_mention(event, say):
 
 @app.message(matchers=[is_link])
 def handle_links(message, say, logger):
+    link_message = MessageEvent.model_validate(message)
     resp = say("This message was a link!")
 
 
