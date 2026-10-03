@@ -30,17 +30,6 @@ def handle_mention(event, say):
     logger.info("replied in %s at ts=%s", posted.channel, posted.ts)
 
 
-@app.event("message")
-def handle_direct_message(event, say):
-    """Echo direct messages. Ignores bots, edits, and channel messages."""
-    msg = MessageEvent.model_validate(event)
-    if msg.channel_type != "im":
-        return
-    if msg.bot_id or msg.subtype:
-        return
-    say(f"You said: {msg.text}")
-
-
 @app.message(matchers=[is_link])
 def handle_links(message, say, logger):
     resp = say("This message was a link!")
