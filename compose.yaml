@@ -1,3 +1,4 @@
+# how services run
 services:
   postgres:
     image: postgres:18-alpine
@@ -15,5 +16,28 @@ services:
       timeout: 5s
       retries: 5
       start_period: 30s
+  mattermost:
+    image: mattermost/mattermost-team-edition:11.7.0
+    platform: linux/amd64
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      TZ: ${TZ:-UTC}
+      MM_SQLSETTINGS_DRIVERNAME: postgres
+      MM_SQLSETTINGS_DATASOURCE: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}?sslmode=disable&connect_timeout=10
+      MM_SQLSETTINGS_SITEURL: ${SITE_URL:?set in .env}
+    volumes:
+      - mm-config:/mattermost/config
+      - mm-data:/mattermost/data
+      - mm-logs:/mattermost/logs
+      - mm-plugins:/mattermost/plugins
+      - mm-client-plugins:/mattermost/client/plugins
 volumes:
   postgres-data:
+  mm-config:
+  mm-data:
+  mm-logs:
+  mm-plugins:
+  mm-client-plugins:
