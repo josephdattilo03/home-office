@@ -1,9 +1,12 @@
 # secrets
 .env
 .env.*
+!.env.example
 
 # scraped / generated data
 data/
+volumes/
+certs/
 
 # python
 __pycache__/

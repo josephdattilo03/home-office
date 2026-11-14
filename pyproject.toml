@@ -2,13 +2,16 @@
 name = "home-office"
 version = "0.1.0"
 requires-python = ">=3.13"
-
-[tool.uv.workspace]
-members = ["libs/*", "services/*"]
+dependencies = []
 
 [dependency-groups]
-dev = ["pytest", "ruff"]
+dev = [
+    "pytest>=9.2.0",
+    "ruff>=0.17.5",
+]
 
-[tool.pyright]
-venvPath = "."
-venv = ".venv"
+[tool.uv.workspace]
+members = [
+    "bot",
+    "mcp/notes",
+]
