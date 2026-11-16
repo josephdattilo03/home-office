@@ -3,3 +3,8 @@ services:
   mattermost:
     ports:
       - "127.0.0.1:8065:8065"
+
+  bot:
+    volumes:
+      # : is an alias for the bot for development
+      - ./bot/src:/app/src

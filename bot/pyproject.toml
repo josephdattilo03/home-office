@@ -10,7 +10,7 @@ requires-python = ">=3.13"
 dependencies = []
 
 [project.scripts]
-bot = "bot:main"
+bot = "bot.server:main"
 
 [build-system]
 requires = ["uv_build>=0.12.19,<0.13.0"]

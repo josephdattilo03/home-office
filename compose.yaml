@@ -28,12 +28,30 @@ services:
       MM_SQLSETTINGS_DRIVERNAME: postgres
       MM_SQLSETTINGS_DATASOURCE: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}?sslmode=disable&connect_timeout=10
       MM_SQLSETTINGS_SITEURL: ${SITE_URL:?set in .env}
+      MM_SERVICESETTINGS_ENABLEOUTGOINGWEBHOOKS: "true"
+      MM_SERVICESETTINGS_ALLOWEDUNTRUSTEDINTERNALCONNECTIONS: "bot"
+      MM_SERVICESETTINGS_OUTGOINGINTEGRATIONREQUESTSTIMEOUT: "60s"
     volumes:
       - mm-config:/mattermost/config
       - mm-data:/mattermost/data
       - mm-logs:/mattermost/logs
       - mm-plugins:/mattermost/plugins
       - mm-client-plugins:/mattermost/client/plugins
+  bot:
+    build: ./bot
+    restart: unless-stopped
+    depends_on:
+      - mattermost
+    environment:
+      MM_WEBHOOK_TOKEN: ${MM_WEBHOOK_TOKEN:?set in .env}
+      MM_BOT_TOKEN: ${MM_BOT_TOKEN:?set in .env}
+      CLAUDE_CODE_OAUTH_TOKEN: ${CLAUDE_CODE_OAUTH_TOKEN:?set in .env}
+    healthcheck:
+      test: ["CMD", "curl", "-s", "-o", "/dev/null", "http://localhost:8000"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
 volumes:
   postgres-data:
   mm-config:
